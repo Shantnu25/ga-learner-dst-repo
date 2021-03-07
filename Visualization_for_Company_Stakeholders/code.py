@@ -1,4 +1,3 @@
-# --------------
 #Importing header files
 import pandas as pd
 import numpy as np
@@ -8,25 +7,22 @@ import matplotlib.pyplot as plt
 #Reading the file
 data=pd.read_csv(path)
 
-#Code starts here
+#1 Visualizing the company's record with respect to loan approvals.
 
-# Step 1 
-#Reading the file
-print(data.head())
 print(data.shape)
-print('----------------------------------------')
 
 #Creating a new variable to store the value counts
 loan_status=data['Loan_Status'].value_counts()
-print(loan_status)
-print('----------------------------------------')
 
 #Plotting bar plot
 plt.bar(loan_status.index,loan_status.data)
 plt.show()
+
+#Company has more 'loan approvals'
 print('----------------------------------------')
 
-# Step 2
+#2 Loan approval distribution across the regions.
+
 #Plotting an unstacked bar plot
 property_and_loan=data.groupby(['Property_Area','Loan_Status'])
 property_and_loan=property_and_loan.size().unstack()
@@ -41,10 +37,15 @@ plt.ylabel('Loan Status')
 #Rotating the ticks of X-axis
 plt.xticks(rotation=45)
 plt.show()
+
+#Semiurban region with the highest no. of loan approvals
+#Rural region with lowest no. of loan approvals
+#Semiurban region with the maximum difference between loan approvals and loan rejections
 print('----------------------------------------')
 
 
-# Step 3
+#3 Does higher education result in a better guarantee in issuing loans? 
+
 #Plotting a stacked bar plot
 education_and_loan=data.groupby(['Education','Loan_Status'])
 education_and_loan=education_and_loan.size().unstack()
@@ -59,9 +60,13 @@ plt.ylabel('Loan Status')
 #Rotating the ticks of X-axis
 plt.xticks(rotation=45)
 plt.show()
+
+#- Graduate group has asked for higher loan services irrespective of the approval. 
+
 print('----------------------------------------')
 
-# Step 4 
+#4  Checking whether being graduate or not also leads to different loan amount distribution 
+
 #Subsetting the dataframe based on 'Education' column
 graduate=data[data['Education'] == 'Graduate']
 
@@ -76,10 +81,11 @@ not_graduate['LoanAmount'].plot(kind='density',label='Not Graduate')
 
 #For automatic legend display
 plt.legend()
-plt.show()
+
 print('----------------------------------------')
 
-# Step 5
+#5 Cheecking correlation between the borrower's income and loan amount 
+
 #Setting up the subplots
 fig,(ax_1,ax_2,ax_3)=plt.subplots(nrows = 3 , ncols = 1,figsize=[20,10])
 
@@ -100,10 +106,8 @@ data['TotalIncome']=data['ApplicantIncome']+data['CoapplicantIncome']
 
 #Plotting scatter plot
 ax_3.scatter(data['TotalIncome'],data['LoanAmount'])
-ax_3.set_title('Total Income')
-
 
 #Setting the subplot axis title
+ax_3.set_title('Total Income')
 
-
-
+# High Correlation between 'ApplicantIncome' and 'LoanAmount'
