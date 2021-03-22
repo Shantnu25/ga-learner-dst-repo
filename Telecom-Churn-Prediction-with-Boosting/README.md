@@ -18,3 +18,8 @@ Using the method of Boosting, classify whether or not the customer will churn.
 
 For this particular dataset, we are using accuracy_score as the evaluation metric. 
 
+Using AdaBoost Classifier  ( accuracy_score = 0.80 )
+
+Using XGBoost Classifier   ( accuracy_score = 0.80 )
+
+ 
