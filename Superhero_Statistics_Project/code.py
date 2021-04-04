@@ -1,4 +1,3 @@
-# --------------
 #Header files
 import pandas as pd
 import numpy as np
@@ -10,47 +9,60 @@ data=pd.read_csv(path)
 print(data.head())
 print('---------------------------------------')
 
-#Replacing - to agender and plotting gender graph
+#1 Checking the distribution of Gender (Male, Female, Agender)
+
+#Replacing '-' to 'agender' and plotting gender graph
 data['Gender']=data['Gender'].replace('-','Agender')
 
+#Storing the value counts of 'Gender'
+gender_count=data['Gender'].value_counts()
+
+#Plotting bar graph of 'gender_count'
 plt.figure(figsize=(12,7))
 plt.xlabel('Gender')
 plt.ylabel('Frequency')
-gender=data['Gender'].value_counts()
-plt.bar(gender.index,gender.values)
+plt.bar(gender_count.index,gender_count.values)
 plt.show()
 
-#Majority of heros are male
+#Obs: Majority of heros are male
 
-#alignment Distribution
+#2 Character Alignment Distribution (Good, Bad, Neutral)
+
+#Storing the value count of 'Alignment' 
+align=data['Alignment'].value_counts()
+
+#Plotting bar chart for 'alignment'
 plt.figure(figsize=(12,7))
 plt.xlabel('Alignment')
 plt.ylabel('Frequency')
-align=data['Alignment'].value_counts()
+plt.title('Character alignment')
 plt.bar(align.index,align.values)
 plt.show()
 
 # Majority of heros are good
 # No change in majority,  if the ones in neutral all took one side
 
-#combat skills related to strength or intelligence
+#3 Checking combat skills related to strength or intelligence (correlation)
+
+#Combat - strength corr
 com_stn_coeff=data[['Combat','Strength']].corr(method='spearman')
 print(com_stn_coeff)
-print('-----------------------------------------------')
-com_int_coeff=data[['Combat','Intelligence']].corr(method='spearman')
+
+#Combat - intelligence corr
+com_int_coeff = data[['Combat','Intelligence']].corr(method='spearman')
 print(com_int_coeff)
-print('-----------------------------------------------')
 
-#Combat is related to both Intelligence and Strngth positively and linearly
-# best of the best in this superhero universe
+#Combat is strongly positively correlated to both Intelligence(0.75) and Strngth(0.74)
 
-Quan99=data['Total'].quantile(0.99)
-super_best_names=list(data['Name'][data['Total']>Quan99].values)
+#4 Finding names of best of the best in this superhero universe
+
+#by finding q = 0.99 for Total column
+Quan99 = data['Total'].quantile(0.99)
+
+#List of superhero names in 0.99 quantile
+super_best_names = list(data['Name'][data['Total']>Quan99].values)
 print(super_best_names)
 
 
 
 # Code starts here
-
-
-
