@@ -1,4 +1,4 @@
-**Problem Statement**
+**Visualization for Company Stakeholders**
 
 I have been hired by the stakeholders of Dream Housing Finance company to help them get visual insights on the company's operations.
 Using the data visualization techniques I learned,
