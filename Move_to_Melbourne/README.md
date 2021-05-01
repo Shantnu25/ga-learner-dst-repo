@@ -16,37 +16,37 @@ To predict the final price of each home in Melbourne.
 
 Feature  - 	Description
 
-0 	Rooms 	- Number of rooms
+Rooms 	- Number of rooms
 
-1 	Type 	Property type
+Type 	Property type
 
-2 	Price 	Price in dollars (Target Variable)
+Price 	Price in dollars (Target Variable)
 
-3 	Method 	Property status
+Method 	Property status
 
-4 	SellerG 	Real Estate Agent
+SellerG 	Real Estate Agent
 
-5 	Distance 	Distance from CBD
+Distance 	Distance from CBD
 
-6 	Postcode 	Code of the area
+Postcode 	Code of the area
 
-7 	Bathroom 	Number of Bathrooms
+Bathroom 	Number of Bathrooms
 
-8 	Car 	Number of carspots
+Car 	Number of carspots
 
-9 	Landsize 	Land Size
+Landsize 	Land Size
 
-10 	BuildingArea 	Building Size
+BuildingArea 	Building Size
 
-11 	YearBuilt 	The year in which home was built
+YearBuilt 	The year in which home was built
 
-12 	CouncilArea 	Governing council for the area
+CouncilArea 	Governing council for the area
 
-13 	Longitude 	The angular distance of a place east or west
+Longitude 	The angular distance of a place east or west
 
-14 	Regionname 	General Region (West, North West, North, North...
+Regionname 	General Region (West, North West, North, North...
 
-15 	PropertyCount 	PropertyCount|Number of properties that exist ...
+PropertyCount 	PropertyCount|Number of properties that exist ...
 
 # Evaluation metrics
 
