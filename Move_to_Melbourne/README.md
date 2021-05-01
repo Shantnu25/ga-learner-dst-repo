@@ -65,4 +65,4 @@ In this project, I applied the following concepts:
     Polynomial Regressor
     Lasso Regressor
     Ridge Regressor
-    R^2 Evaluation Metrics
+    r2 Evaluation Metrics
