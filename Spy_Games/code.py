@@ -1,36 +1,42 @@
-# --------------
-#Code starts here
 
-#Function to read file
+#1 Function to read file's contents
+
 def read_file(path):
     
     #Opening of the file located in the path in 'read' mode
     file=open(path, 'r')
+    
     #Reading of the first line of the file and storing it in a variable
     sentence=file.readline()
+    
     #Closing of the file
     file.close
+    
     #Returning the first line of the file
     return(sentence)
     
 
 #Calling the function to read file
 sample_message=read_file(file_path)
+
 #Printing the line of the file
 print(sample_message)
 
-#Function to fuse message
+#2 Function to fuse messages of two different files having one number
+
 def fuse_msg(message_a,message_b):
     
     #Integer division of two numbers
     quotient=int(message_b)//int(message_a)
+    
     #Returning the quotient in string format
     return(str(quotient))
+
 #Calling the function to read file  
 message_1=read_file(file_path_1)
+
 #Calling the function to read file
 message_2=read_file(file_path_2)
-
 
 #Calling the function 'fuse_msg'
 secret_msg_1=fuse_msg(message_1,message_2)
@@ -38,23 +44,23 @@ secret_msg_1=fuse_msg(message_1,message_2)
 #Printing the secret message 
 print(secret_msg_1)
 
-#Function to substitute the message
+#3 Function to substitute the message of the file for a secret message.
+
 def substitute_msg(message_c):
     
     #If-else to compare the contents of the file
     if (message_c=='Red'):
         sub='Army General'
+        
     if(message_c=='Green'):
         sub='Data Scientist'
+        
     if(message_c=='Blue'):
         sub='Marine Biologist' 
-    
-
     
     #Returning the substitute of the message
     return(sub)
     
-
 #Calling the function to read file
 message_3=read_file(file_path_3)
 print(message_3)
@@ -65,8 +71,11 @@ secret_msg_2=substitute_msg(message_3)
 #Printing the secret message
 print(secret_msg_2)
 
+#4 Function to compare messages
 
-#Function to compare message
+#comparing the two messages and take only those words that appear
+#in first message but not in second message.
+
 def compare_msg(message_d,message_e):
     
     #Splitting the message into a list
@@ -88,16 +97,21 @@ def compare_msg(message_d,message_e):
 #Calling the function to read file
 message_4=read_file(file_path_4)
 print(message_4)
+
 #Calling the function to read file
 message_5=read_file(file_path_5)
 print(message_5)
+
 #Calling the function 'compare messages'
 secret_msg_3=compare_msg(message_4,message_5)
 
 #Printing the secret message
 print(secret_msg_3)
 
-#Function to filter message
+#5 Function to filter message
+
+# extract only those words from the message in the file that are of even length.
+
 def extract_msg(message_f):
     
     #Splitting the message into a list
@@ -119,15 +133,17 @@ def extract_msg(message_f):
 #Calling the function to read file
 message_6=read_file(file_path_6)
 print(message_6)
+
 #Calling the function 'filter_msg'
 secret_msg_4=extract_msg(message_6)
 
 #Printing the secret message
 print(secret_msg_4)
 
+#6 Combining all the message bits into a single message and writing it in a file.
+
 #Secret message parts in the correct order
 message_parts=[secret_msg_3, secret_msg_1, secret_msg_4, secret_msg_2]
-
 
 # define the path where you 
 final_path= user_data_dir + '/secret_message.txt'
@@ -141,22 +157,15 @@ def write_file(secret_msg,path):
     #Opening a file named 'secret_message' in 'write' mode
     secret_message=open(path,'a+')
 
-
     #Writing to the file
     secret_message.write(secret_msg)
 
-
     #Closing the file
     secret_message.close()
-
-
 
 #Calling the function to write inside the file    
 write_file(secret_msg,final_path)
 
 #Printing the entire secret message
 print(secret_msg)
-
-#Code ends here
-
 
