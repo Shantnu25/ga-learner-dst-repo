@@ -18,35 +18,35 @@ Feature  - 	Description
 
 Rooms 	- Number of rooms
 
-Type 	Property type
+Type 	- Property type
 
-Price 	Price in dollars (Target Variable)
+Price 	-  Price in dollars (Target Variable)
 
-Method 	Property status
+Method 	 - Property status
 
-SellerG 	Real Estate Agent
+SellerG 	-  Real Estate Agent
 
-Distance 	Distance from CBD
+Distance 	-  Distance from CBD
 
-Postcode 	Code of the area
+Postcode 	- Code of the area
 
-Bathroom 	Number of Bathrooms
+Bathroom 	-  Number of Bathrooms
 
-Car 	Number of carspots
+Car 	-  Number of carspots
 
-Landsize 	Land Size
+Landsize 	-  Land Size
 
-BuildingArea 	Building Size
+BuildingArea 	-  Building Size
 
-YearBuilt 	The year in which home was built
+YearBuilt 	-  The year in which home was built
 
-CouncilArea 	Governing council for the area
+CouncilArea 	-  Governing council for the area
 
-Longitude 	The angular distance of a place east or west
+Longitude 	-  The angular distance of a place east or west
 
-Regionname 	General Region (West, North West, North, North...
+Regionname -	General Region (West, North West, North, North...
 
-PropertyCount 	PropertyCount|Number of properties that exist ...
+PropertyCount 	- PropertyCount|Number of properties that exist ...
 
 # Evaluation metrics
 
