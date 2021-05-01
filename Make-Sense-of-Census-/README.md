@@ -1,7 +1,5 @@
 **Project Overview**
 
-**Problem Statement**
-
 I have been hired by 'CACT'(Census Analysis and Collection Team) to help with numpy programming skills.
 My major work for today involves census record management and data analysis.
 
