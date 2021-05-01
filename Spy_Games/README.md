@@ -1,7 +1,5 @@
 # Spy Games
 
-## Problem Statement
-
 Hello lieutenant!
 
 Your mission if you choose to accept it, would be to help us decipher a message that we received from our intel.
