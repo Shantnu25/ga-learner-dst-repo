@@ -10,4 +10,13 @@ In this project, With the help of K-Means clustering, we will be forming groups 
 Our dataset consist of two sheets, with names OfferInformation and Transactions.
 OfferInformation has 32 rows and 7 columns while Transactions has 324 rows and 3 columns.
 
-## 
+## Outcomes
+
+In this project, I applied the following skills:
+
+
+    Data Manipulation
+    Dimensionality Reduction Technique with PCA
+    KMeans clustering
+    Interpreting clusters with visualization
+
