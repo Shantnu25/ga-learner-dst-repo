@@ -1,8 +1,8 @@
 ## Amazon Alexa Reviews
 
 I am working in the amazon company as data scientist.
-They want you to focus on customer reviews on there alexa product.
-So, our aim is to classify the unhappy customer based on the features 'rating', 'date', 'variation', 'verified_reviews', 'feedback'.
+They want me to focus on customer reviews on there alexa product.
+So, my aim is to classify the unhappy customer based on the features 'rating', 'date', 'variation', 'verified_reviews', 'feedback'.
 So let's work on the customer reviews.
 
 ### About the Dataset:
@@ -23,12 +23,12 @@ feedback 	       -  feedback given by customer(0/1)
 
 ### Evaluation metrics
 
-For this particular dataset, we ahave used precision_score as the evaluation metric. 
+For this particular dataset, I have used precision_score as the evaluation metric. 
 
 ### Outcomes
 
-After completing this project, I have the better understanding of how to solve sentiment analysis.
-In this project, I have applied the following concepts.
+After completing this project, I have the better understanding of how to solve sentiment analysis problem.
+In this project, I have applied the following concepts:
 
     Train-test split
     posterstemmer
