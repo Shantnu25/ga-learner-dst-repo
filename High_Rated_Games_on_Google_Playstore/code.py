@@ -1,69 +1,144 @@
-# --------------
 #Importing header files
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 
 
-
-
 #Loading the data
 data=pd.read_csv(path)
 
-#Code starts here
-print(data.info())
+#1 Plotting histogram of Rating
+data['Rating'].plot(kind='hist')
 
-#1 Checking Null Values
-print(data.isnull().sum())
-
-#Treating null values in Rating feature using mean value
-meanValue=np.mean(data['Rating'])
-data['Rating']=data['Rating'].fillna(meanValue)
-
-#Treating null value other than Rating
-data.dropna(inplace=True)
-print(data.isnull().sum())
-
-#2 Plotting Rating Histogram
-sns.distplot(data['Rating'],kde = False)
 plt.show()
 
-#Subset of data for Rating>5
+# from the plotted histogram, there exists Rating>5 which shouldn't be there
+
+#Subsetting the dataframe based on `Rating` column
 data=data[data['Rating']<=5]
 
-#Plotting Rating(only <=5) Histogram
-sns.distplot(data['Rating'],kde = False)
-plt.show()
+#Plotting histogram of Rating
+data['Rating'].plot(kind='hist')   
 
-#3 Genres only one Genre per app
-data['Genres'] = data['Genres'].str.split(';').str[0]
+#2 Checking for the Null values. Treat them if any.
 
-#print(data['Genres'].value_counts())
+#Sum of null values of each column
+total_null = data.isnull().sum()
 
-#4 Mean rating of every Genres(Highest and Lowest average rating)
-print(data.groupby('Genres')[['Rating']].mean())
+#Percentage of null values of each column
+percent_null = (total_null/data.isnull().count())
 
+#Concatenating total_null and percent_null values
+missing_data = pd.concat([total_null, percent_null], axis=1, keys=['Total', 'Percent'])
 
-#5 Installs and Price column - convert to numeric
-data['Installs'] = data['Installs'].str.split('+').str[0]
-data['Installs'] = data['Installs'].str.replace(',', '')
-data['Price'] = data['Price'].str.replace('$', '')
+print(missing_data)
 
+#Dropping the null values
+data.dropna(inplace = True)
+
+#Sum of null values of each column
+total_null_1 = data.isnull().sum()
+
+#Percentage of null values of each column
+percent_null_1 = (total_null_1/data.isnull().count())
+
+#Concatenating total_null and percent_null values
+missing_data_1 = pd.concat([total_null_1, percent_null_1], axis=1, keys=['Total', 'Percent'])
+
+print(missing_data_1)
+
+#3 Category vs Rating
+
+#Setting the figure size
+plt.figure(figsize=(10,10))
+
+#Plotting boxplot between Rating and Category
+cat= sns.catplot(x="Category",y="Rating",data=data, kind="box", height = 10)
+
+#Rotating the xlabel rotation
+cat.set_xticklabels(rotation=90)
+
+#Setting the title of the plot
+plt.title('Rating vs Category [BoxPlot]',size = 20)
+
+#4 Rating vs Installs
+
+#Removing `,` from the column
+data['Installs']=data['Installs'].str.replace(',','')
+
+#Removing `+` from the column
+data['Installs']=data['Installs'].str.replace('+','')
+
+#Converting the column to `int` datatype
 data['Installs'] = data['Installs'].astype(int)
+
+#Creating a label encoder object
+le=LabelEncoder()
+
+#Label encoding the column to reduce the effect of a large range of values
+data['Installs']=le.fit_transform(data['Installs'])
+
+#Setting figure size
+plt.figure(figsize = (10,10))
+
+#Plotting Regression plot between Rating and Installs
+sns.regplot(x="Installs", y="Rating", color = 'teal',data=data)
+
+#Setting the title of the plot
+plt.title('Rating vs Installs[RegPlot]',size = 20)
+
+#5 Ratings vs Price
+
+#Removing the dollar sign from the column
+data['Price'] = data['Price'].str.replace('$','')
+
+#Converting the column to float
 data['Price'] = data['Price'].astype(float)
 
-plt.scatter(data['Installs'], data['Rating']);
-plt.show()
+#Setting the figure size
+plt.figure(figsize = (10,10))
 
-plt.scatter(data['Price'], data['Rating']);
-plt.show()
+#Plotting Regression plot between Rating and Price
+sns.regplot(x="Price", y="Rating", color = 'darkorange',data=data)
 
-#6 Last Updated column as datetype
-data['Last Updated']=pd.to_datetime(data['Last Updated'], infer_datetime_format=True)
+#Setting the plot title
+plt.title('Rating vs Price[Reg Plot]',size = 20)
 
-print(data.info())
+#6 Genre vs Rating
+
+#Finding the length of unique genres
+print( len(data['Genres'].unique()) , "genres")
+
+#Splitting the column to include only the first genre of each app
+data['Genres'] = data['Genres'].str.split(';').str[0]
+
+#Grouping Genres and Rating
+gr_mean=data[['Genres', 'Rating']].groupby(['Genres'], as_index=False).mean()
+
+print(gr_mean.describe())
+
+#Sorting the grouped dataframe by Rating
+gr_mean=gr_mean.sort_values('Rating')
+
+print(gr_mean.head(1))
+
+print(gr_mean.tail(1))
 
 
+#7 Ratings vs Last Updated
 
+#Converting the column into datetime format
+data['Last Updated'] = pd.to_datetime(data['Last Updated'])
+
+#Creating new column having `Last Updated` in days
+data['Last Updated Days'] = (data['Last Updated'].max()-data['Last Updated'] ).dt.days 
+
+#Setting the size of the figure
+plt.figure(figsize = (10,10))
+
+#Plotting a regression plot between `Rating` and `Last Updated Days`
+sns.regplot(x="Last Updated Days", y="Rating", color = 'lightpink',data=data )
+
+#Setting the title of the plot
+plt.title('Rating vs Last Updated [RegPlot]',size = 20)
