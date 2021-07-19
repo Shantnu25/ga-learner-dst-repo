@@ -1,92 +1,93 @@
-# --------------
+#import packages
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the dataframe
 df = pd.read_csv(path)
-print(df.head(2))
 
-tot=len(df)
-print(tot)
-print('------------------------------------')
+#1 calculate the joint probability
+#  Les's check whether the condition fico credit score is greater than 700 and purpose == 'debt_consolidation' is independent of each other.
 
-#Task 1: To calculate the joint probability
-p_a=len(df[df['fico']>700])/tot
+# probability of  fico score greater than 700
+p_a = df[df['fico'].astype(float) >700].shape[0]/df.shape[0]
 print(p_a)
-print('------------------------------------')
 
-p_b=len(df[df['purpose']== 'debt_consolidation'])/tot
+# probability of purpose == debt_consolidation
+p_b = df[df['purpose']== 'debt_consolidation'].shape[0]/df.shape[0]
 print(p_b)
 
-df1=df[df['purpose']== 'debt_consolidation']
+# Create new dataframe for condition ['purpose']== 'debt_consolidation' 
+df1 = df[df['purpose']== 'debt_consolidation']
 
-p_a_b=((len(df1[df1['fico']>700]))/tot)/p_b
+# Calculate the P(A|B)
+p_a_b = df1[df1['fico'].astype(float) >700].shape[0]/df1.shape[0]
 print(p_a_b)
 
-result=p_a_b==p_a
+# Check whether the P(A) and P(B) are independent from each other
+result = (p_a == p_a_b)
 print(result)
-print('------------------------------------')
 
-#Task 2. Calculating conditional probability
-prob_lp=len(df[df['paid.back.loan']=='Yes'])/tot
+#2 Calculating conditional probability
+#  Let's calculate the Bayes theorem for the probability of credit policy is yes and the person is given the loan.
+
+# probability of paid_back_loan is Yes
+prob_lp = df[df['paid.back.loan'] == 'Yes'].shape[0] / df.shape[0]
 print(prob_lp)
-print('------------------------------------')
 
-prob_cs=len(df[df['credit.policy']=='Yes'])/tot
+# probability of the credit policy is Yes
+prob_cs = df[df['credit.policy'] == 'Yes'].shape[0]  / df.shape[0]
 print(prob_cs)
-print('------------------------------------')
 
-new_df=df[df['paid.back.loan']== 'Yes']
+# create new dataframe for paid.back.loan == 'Yes'
+new_df = df[df['paid.back.loan'] == 'Yes']
 
-prob_pd_cs=((len(new_df[new_df['credit.policy']=='Yes']))/tot)/prob_lp
+# Calculate the P(B|A)
+prob_pd_cs = new_df[new_df['credit.policy'] == 'Yes'].shape[0] / new_df.shape[0]
+
 print(prob_pd_cs)
-print('------------------------------------')
 
-bayes=(prob_pd_cs*prob_lp)/prob_cs
+# bayes theorem 
+
+bayes = (prob_pd_cs * prob_lp)/ prob_cs
+
+# print bayes
 print(bayes)
 
-#Task 3. Let's visualize the bar plot for the purpose
-purp=df['purpose'].value_counts()
+#3 visualize the bar plot for the purpose
 
-plt.figure(figsize=[12,7])
-plt.xlabel('Purpose')
-plt.ylabel('Frequency')
-plt.bar(purp.index,purp.values)
+# create bar plot for purpose
+df.purpose.value_counts(normalize=True).plot(kind='bar')
+plt.title("Probability Distribution of Purpose")
+plt.ylabel("Probability")
+plt.xlabel("Number of Purpose")
 plt.show()
 
-df1=df[df['paid.back.loan']=='No']
-print(df1.shape)
+#create new dataframe for paid.back.loan == 'No'
+df1= df[df['paid.back.loan'] == 'No']
 
-purp1=df1['purpose'].value_counts()
-plt.figure(figsize=[12,7])
-plt.xlabel('Purpose where paid.back.loan is No ')
-plt.ylabel('Frequency')
-plt.bar(purp1.index,purp1.values)
+# plot the bar plot for 'purpose' where paid.back.loan == No 
+df1.purpose.value_counts(normalize=True).plot(kind='bar')
+plt.title("Probability Distribution of Purpose")
+plt.ylabel("Probability")
+plt.xlabel("Number of Purpose")
 plt.show()
 
-#Task 4. Let's plot the histogram for visualization of the continuous variable
+#4 Histogram for visualization of the continuous variable
 
-inst_median=df['installment'].median()
-print(inst_median)
-inst_mean=df['installment'].mean()
-print(inst_mean)
+# Calculate median 
+inst_median = df['installment'].median()
+inst_mean = df['installment'].mean()
 
-plt.figure(figsize=[12,7])
-plt.xlabel(' installment')
-plt.ylabel('Frequency')
-plt.hist(df['installment'],bins=25)
+
+# histogram for installment
+df['installment'].hist(normed = True, bins=50)
+plt.axvline(x=inst_median,color='r')
+plt.axvline(x=inst_mean,color='g')
+
 plt.show()
 
-plt.figure(figsize=[12,7])
-plt.xlabel('log annual income')
-plt.ylabel('Frequency')
-plt.hist(df['log.annual.inc'],bins=25)
+#histogram for log anual income
+df['log.annual.inc'].hist(normed = True, bins=50)
 plt.show()
-
-
-#Code starts here
-
-
-
 
